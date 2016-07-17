@@ -24,6 +24,13 @@
             anchorcolor=darkblue,citecolor=darkblue}
 
 %%%%%%%%%%%%%%%%%%%%%%
+%% MULTIROW and ROTATING
+%% Used for the european levels table
+%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{multirow}
+\usepackage{rotating}
+
+%%%%%%%%%%%%%%%%%%%%%%
 %% CURRVITA
 %% (ftp://ftp.dante.de/pub/tex/macros/latex/contrib/currvita/currvita.pdf)
 %%%%%%%%%%%%%%%%%%%%%%
@@ -40,8 +47,13 @@
 \newboolean{extended}
 \setboolean{extended}{false}
 
-% Disable page numbering
+% Disable page numbering for compact mode
+\ifthenelse{\boolean{extended}}{
+\usepackage{fancyhdr}
+}
+{
 \pagenumbering{gobble}
+}
 % Set up the use of sans font as a default
 \renewcommand{\familydefault}{\sfdefault}
 
@@ -58,9 +70,9 @@
     \end{minipage}
     \hspace{1em}
     \begin{minipage}[t]{0.33\textwidth}
-}
       % Reduce the space between label and text
       \setlength{\cvlabelwidth}{0.5em}
+}
       \input{skills.tex}
       \input{certificates.tex}
       \input{courses.tex}
@@ -70,6 +82,19 @@
 \ifthenelse{\boolean{extended}}{}{
     \end{minipage}
 }
+
+\ifthenelse{\boolean{extended}}{
+    \newpage
+    {\Large \scshape{Appendix}}\\
+    \input{mcpd-appendix.tex}
+    \newpage
+    \input{iis-appendix.tex}
+    \newpage
+    \input{iit-appendix.tex}
+    \newpage
+    \input{european-levels.tex}
+}
+
     \input{footer.tex}
   \end{cv}
 \end{document}
